@@ -490,6 +490,50 @@ h1 {
   line-height: 1.4;
 }
 
+/* ---------- Sources (in each panel and under the legend) ---------- */
+
+.sources {
+  margin: 0 0 1.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--sans);
+}
+
+.rest .sources {
+  margin-top: 1.75rem;
+  max-width: 30rem;
+}
+
+.sources h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.sources ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.sources li + li {
+  margin-top: 0.35rem;
+}
+
+.sources a {
+  color: var(--ink);
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+  overflow-wrap: anywhere;
+}
+
+.sources a:hover {
+  text-decoration-color: currentColor;
+}
+
 .panel-nav {
   display: flex;
   justify-content: space-between;

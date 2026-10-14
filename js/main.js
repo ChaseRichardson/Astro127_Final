@@ -20,6 +20,18 @@
   };
 
   /* ------------------------------------------------------------------
+   * Sources. Each "sources" list below (and PAGE_SOURCES for the intro
+   * at the top of the page) takes entries like any of these:
+   *
+   *   "https://science.nasa.gov/...",                      (a bare link)
+   *   { text: "NASA, Airglow", url: "https://science.nasa.gov/..." },
+   *   "Astro 127 lecture notes, Week 6",                   (plain text)
+   *
+   * A Sources heading only shows once its list has at least one entry.
+   * ------------------------------------------------------------------ */
+  const PAGE_SOURCES = [];
+
+  /* ------------------------------------------------------------------
    * Content. The four major kinds of light are listed nearest to
    * farthest; that order drives the legend and the Nearer/Farther
    * buttons. "side" is where the label text sits relative to the dot:
@@ -36,7 +48,6 @@
       body: [
         "Airglow is light given off by the upper atmosphere itself. During the day, molecules in the atmosphere get energized by absorbing ultraviolet (UV) radiation from the Sun, which splits them apart. This energy is stored and needs to be released in some way. Since molecules in the upper atmosphere are more sparse, they rarely bump into each other, so when the pieces recombine at night, the energy is released as light, creating the glow that you see in the sky in the picture.",
         "The colors of the light tell you which gas is glowing and how high in the atmosphere it is sitting. Three gases produce this light: sodium (Na), hydroxyl radicals (OH), and atomic oxygen (O). Sodium generates a yellow-orange tint at around 90 km, hydroxyl radicals produce a red tint at around 85–90 km, and oxygen produces a green tint at around 90–100 km. Oxygen also produces a deep red tint much higher up, at around 150–300 km.",
-        "It looks strongest near the horizon because there you're looking through the glowing layer edge-on, so your line of sight passes through far more of it than when you look straight up. The eye barely notices it, but a long camera exposure at a dark site like the Atacama picks it up easily. Ripples and bands in the glow trace waves moving through the upper atmosphere.",
       ],
       facts: [
         ["Height", "90 to 300 km"],
@@ -44,6 +55,7 @@
         ["Red line", "630 nm, atomic oxygen"],
         ["When", "Every night, all over Earth"],
       ],
+      sources: ["https://science.nasa.gov/earth/earth-observatory/airglow-over-the-indian-ocean-147367/"],
     },
     {
       id: "zodiacal",
@@ -53,9 +65,8 @@
       distance: "Dust spread through the inner Solar System",
       where: "The tilted band of soft light on the upper left, with the star Spica sitting inside it.",
       body: [
-        "Zodiacal light is sunlight reflecting off dust in the inner Solar System. The grains are tiny, mostly tens to hundreds of micrometers across, and they sit in a flattened cloud lined up with the plane the planets orbit in. From Earth that plane traces the ecliptic, the Sun's yearly path through the zodiac constellations, which is where the name comes from.",
+        "Zodiacal light is diffuse sunlight scattered by interplanetary dust, and it appears as a glow rising from the horizon. You can see it in the top left of the image as the white hue in the sky. Zodiacal light is brightest closest to the Sun and extends from the Sun’s direction along the zodiac. The fainter light that spans the entire ecliptic is known as the zodiacal band. Zodiacal light is usually faint and is easily washed out by moonlight and light pollution.",
         "The dust can't last forever. Sunlight slowly drains each grain's orbital energy, an effect called Poynting–Robertson drag, so the grains spiral into the Sun over tens of thousands to hundreds of thousands of years. Something has to keep resupplying the cloud. Most of the dust is thought to come from comets, especially Jupiter-family comets, with some from collisions between asteroids.",
-        "It's best seen from a very dark site shortly after twilight ends or before dawn begins, when the ecliptic stands steeply above the horizon. Near the tropics, like the Atacama at about 23° south, the ecliptic is steep for much of the year. Spica lies only about 2° from the ecliptic, which is why it shows up right inside the band in this photo. Directly opposite the Sun, the same dust makes a fainter patch called the gegenschein.",
       ],
       facts: [
         ["Grain size", "About 10 to 300 µm"],
@@ -63,6 +74,7 @@
         ["Main source", "Comet dust, plus asteroid collisions"],
         ["Also called", "False dawn"],
       ],
+      sources: ["https://en.wikipedia.org/wiki/Zodiacal_light", ],
     },
     {
       id: "milkyway",
@@ -82,6 +94,7 @@
         ["Sun to center", "About 26,000 ly"],
         ["Dark lane", "Dust clouds in the disk"],
       ],
+      sources: [],
     },
     {
       id: "smc",
@@ -101,6 +114,7 @@
         ["Type", "Dwarf galaxy"],
         ["Visible from", "Southern hemisphere and tropics"],
       ],
+      sources: [],
     },
 
     /* Smaller labels: just a name, shown when you point at the dot. */
@@ -238,6 +252,33 @@
     legendEls[f.id] = b;
   });
 
+  /* ---------- Sources ---------- */
+
+  function renderSources(section, list) {
+    const items = (list || []).map((entry) => {
+      const { text, url } =
+        typeof entry === "string"
+          ? /^https?:\/\//.test(entry) ? { url: entry } : { text: entry }
+          : entry;
+      const li = document.createElement("li");
+      if (url) {
+        const a = document.createElement("a");
+        a.href = url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.textContent = text || url;
+        li.append(a);
+      } else {
+        li.textContent = text;
+      }
+      return li;
+    });
+    section.querySelector("ol").replaceChildren(...items);
+    section.hidden = items.length === 0;
+  }
+
+  renderSources($("page-sources"), PAGE_SOURCES);
+
   /* ---------- Detail panel ---------- */
 
   let current = null;
@@ -289,6 +330,8 @@
         return row;
       })
     );
+
+    renderSources($("panel-sources"), f.sources);
 
     setNav($("prev"), MAJORS[i - 1], "Nearer");
     setNav($("next"), MAJORS[i + 1], "Farther");
