@@ -172,6 +172,18 @@ h1 {
   transform: translate(calc(-100% + var(--d) / 2), -50%);
 }
 
+.mark.side-up,
+.mark.side-down {
+  flex-direction: column;
+  gap: 0.25rem;
+  transform: translate(-50%, calc(var(--d) / -2));
+}
+
+.mark.side-up {
+  flex-direction: column-reverse;
+  transform: translate(-50%, calc(-100% + var(--d) / 2));
+}
+
 .mark--minor {
   --d: 0.6rem;
   --c: #d4d8e2;

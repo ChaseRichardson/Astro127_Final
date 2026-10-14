@@ -8,21 +8,22 @@
    * copy the printed block back over this one.
    * ------------------------------------------------------------------ */
   const POSITIONS = {
-    airglow: [72, 60],
-    zodiacal: [22, 30],
-    milkyway: [52, 38],
-    smc: [84, 8],
-    spica: [27, 42],
-    andes: [12, 64],
-    licancabur: [38, 63],
-    sanpedro: [80, 66],
-    staircase: [50, 76],
+    airglow: [74, 61],
+    zodiacal: [21, 34],
+    milkyway: [51, 30],
+    smc: [85, 2.5],
+    spica: [18, 23],
+    andes: [10, 71.5],
+    licancabur: [49.5, 72.3],
+    sanpedro: [76, 72.5],
+    staircase: [37, 75],
   };
 
   /* ------------------------------------------------------------------
    * Content. The four major kinds of light are listed nearest to
    * farthest; that order drives the legend and the Nearer/Farther
-   * buttons. "side" is which side of the dot the label text sits on.
+   * buttons. "side" is where the label text sits relative to the dot:
+   * left, right, up or down.
    * ------------------------------------------------------------------ */
   const FEATURES = [
     {
@@ -117,19 +118,19 @@
     },
     {
       id: "licancabur",
-      side: "right",
+      side: "up",
       name: "Licancabur",
       note: "A volcano about 5,900 m tall on the border between Chile and Bolivia, about 40 km from San Pedro de Atacama.",
     },
     {
       id: "sanpedro",
-      side: "left",
+      side: "down",
       name: "San Pedro de Atacama",
       note: "The lights of a small oasis town at about 2,400 m. Even a town this small shows up in a long exposure, which is why big observatories are built far from any settlement.",
     },
     {
       id: "staircase",
-      side: "right",
+      side: "down",
       name: "Desert Staircase",
       note: "A stair sculpture in the desert. The photographer timed the shot so the Milky Way seems to carry on where the steps end.",
     },
