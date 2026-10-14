@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Desert Stairway to Heaven: a guided look at the sky</title>
+  <meta name="description" content="An interactive look at the light in one night photo over Chile's Atacama Desert: airglow, zodiacal light, the Milky Way, and the Small Magellanic Cloud.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="layout">
+    <header class="head">
+      <h1>Desert Stairway to Heaven</h1>
+      <p class="lede">
+        One long exposure over the Atacama Desert in northern Chile catches four
+        kinds of night-sky light at wildly different distances, from the air about
+        100&nbsp;km overhead to a neighboring galaxy 200,000 light-years away.
+      </p>
+    </header>
+
+    <figure class="photo">
+      <div class="frame" id="frame">
+        <img
+          id="sky"
+          src="images/desert-stairway.jpg"
+          width="960" height="1280"
+          alt="Long-exposure night photo above the Atacama Desert. A stone path leads to a staircase sculpture that ends in mid-air, and the Milky Way rises almost vertically behind it, as if the stairs continue into the sky. A faint tilted glow of zodiacal light crosses the upper left, green and red airglow lines the horizon above distant mountains and a volcano, and the Small Magellanic Cloud is a small smudge at the top right.">
+        <div class="marks" id="marks"></div>
+        <div class="note" id="note" hidden aria-live="polite">
+          <h3></h3>
+          <p></p>
+        </div>
+      </div>
+      <figcaption>
+        <span class="credit">Photo by Julien Looten, July 2025. Featured as NASA's Astronomy Picture of the Day on October 13, 2026.</span>
+        <button type="button" class="text-btn" id="toggle-labels">Hide labels</button>
+      </figcaption>
+    </figure>
+
+    <section class="rest" aria-labelledby="legend-heading">
+      <h2 id="legend-heading" class="legend-heading">Four kinds of light, nearest to farthest</h2>
+      <ul class="legend" id="legend"></ul>
+      <p class="hint">Choose one here or select its label on the photo to read more. The smaller labels give quick notes on the landscape.</p>
+    </section>
+
+    <aside class="panel" id="panel" aria-labelledby="panel-title" inert>
+      <div class="panel-top">
+        <button type="button" class="text-btn" id="panel-close">Close</button>
+      </div>
+      <h2 id="panel-title" tabindex="-1"></h2>
+      <p class="panel-distance" id="panel-distance"></p>
+      <p class="panel-where" id="panel-where"></p>
+      <div class="panel-body" id="panel-body"></div>
+      <dl class="panel-facts" id="panel-facts"></dl>
+      <nav class="panel-nav" aria-label="Other kinds of light">
+        <button type="button" id="prev"></button>
+        <button type="button" id="next"></button>
+      </nav>
+    </aside>
+  </main>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
