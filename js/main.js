@@ -103,36 +103,31 @@
       ],
     },
 
-    /* Smaller labels: one short note each. */
+    /* Smaller labels: just a name, shown when you point at the dot. */
     {
       id: "spica",
       side: "right",
       name: "Spica",
-      note: "The brightest star in Virgo, about 250 light-years away. It's really two hot blue stars orbiting each other every four days. It sits almost on the ecliptic, which puts it inside the zodiacal light.",
     },
     {
       id: "andes",
       side: "right",
       name: "Andes",
-      note: "The mountains along South America's western edge. They block moisture coming from the east, one reason the Atacama is among the driest places on Earth and has such clear skies.",
     },
     {
       id: "licancabur",
       side: "up",
       name: "Licancabur",
-      note: "A volcano about 5,900 m tall on the border between Chile and Bolivia, about 40 km from San Pedro de Atacama.",
     },
     {
       id: "sanpedro",
       side: "down",
       name: "San Pedro de Atacama",
-      note: "The lights of a small oasis town at about 2,400 m. Even a town this small shows up in a long exposure, which is why big observatories are built far from any settlement.",
     },
     {
       id: "staircase",
       side: "down",
       name: "Desert Staircase",
-      note: "A stair sculpture in the desert. The photographer timed the shot so the Milky Way seems to carry on where the steps end.",
     },
   ];
 
@@ -148,7 +143,6 @@
   const frame = $("frame");
   const img = $("sky");
   const marksEl = $("marks");
-  const note = $("note");
   const panel = $("panel");
   const legend = $("legend");
   const toggle = $("toggle-labels");
@@ -189,16 +183,21 @@
 
   FEATURES.forEach((f, i) => {
     const [x, y] = POSITIONS[f.id];
-    const b = document.createElement("button");
-    b.type = "button";
+    const b = document.createElement(f.major ? "button" : "span");
     b.className = `mark ${f.major ? "mark--major" : "mark--minor"} side-${f.side}`;
     b.style.left = `${x}%`;
     b.style.top = `${y}%`;
     b.style.setProperty("--i", i);
     if (f.major) b.style.setProperty("--c", `var(--${f.id})`);
     b.dataset.id = f.id;
-    b.setAttribute("aria-expanded", "false");
-    b.setAttribute("aria-controls", f.major ? "panel" : "note");
+    if (f.major) {
+      b.type = "button";
+      b.setAttribute("aria-expanded", "false");
+      b.setAttribute("aria-controls", "panel");
+    } else {
+      // Focusable so keyboard users can reveal the name too.
+      b.tabIndex = 0;
+    }
 
     const dot = document.createElement("span");
     dot.className = "dot";
@@ -238,32 +237,6 @@
     legend.append(li);
     legendEls[f.id] = b;
   });
-
-  /* ---------- Quick notes for smaller labels ---------- */
-
-  let noteFor = null;
-
-  function showNote(f) {
-    hideNote();
-    const [x, y] = POSITIONS[f.id];
-    note.querySelector("h3").textContent = f.name;
-    note.querySelector("p").textContent = f.note;
-    note.style.left = `${Math.min(Math.max(x, 25), 75)}%`;
-    note.style.top = `${y}%`;
-    note.classList.toggle("below", y < 35);
-    note.hidden = false;
-    markEls[f.id].classList.add("is-active");
-    markEls[f.id].setAttribute("aria-expanded", "true");
-    noteFor = f.id;
-  }
-
-  function hideNote() {
-    if (!noteFor) return;
-    note.hidden = true;
-    markEls[noteFor].classList.remove("is-active");
-    markEls[noteFor].setAttribute("aria-expanded", "false");
-    noteFor = null;
-  }
 
   /* ---------- Detail panel ---------- */
 
@@ -346,23 +319,13 @@
 
   marksEl.addEventListener("click", (e) => {
     if (EDIT) return;
-    const m = e.target.closest(".mark");
-    if (!m) return;
-    const f = byId[m.dataset.id];
-    if (f.major) {
-      hideNote();
-      openPanel(f.id, m);
-    } else if (noteFor === f.id) {
-      hideNote();
-    } else {
-      showNote(f);
-    }
+    const m = e.target.closest(".mark--major");
+    if (m) openPanel(m.dataset.id, m);
   });
 
   legend.addEventListener("click", (e) => {
     const b = e.target.closest("button");
     if (!b) return;
-    hideNote();
     openPanel(b.dataset.id, b);
   });
 
@@ -370,20 +333,13 @@
   $("next").addEventListener("click", (e) => openPanel(e.currentTarget.dataset.id));
   $("panel-close").addEventListener("click", closePanel);
 
-  document.addEventListener("click", (e) => {
-    if (noteFor && !e.target.closest(".mark") && !e.target.closest("#note")) hideNote();
-  });
-
   document.addEventListener("keydown", (e) => {
-    if (e.key !== "Escape") return;
-    if (noteFor) hideNote();
-    else closePanel();
+    if (e.key === "Escape") closePanel();
   });
 
   toggle.addEventListener("click", () => {
     const hidden = frame.classList.toggle("labels-hidden");
     toggle.textContent = hidden ? "Show labels" : "Hide labels";
-    hideNote();
   });
 
   // Links like index.html#milkyway open straight to that panel.

@@ -1,6 +1,6 @@
 /* Each of the four kinds of light gets the color it actually has in the photo. */
 :root {
-  --night: #0f1a2e;
+  --night: #050b17;
   --night-raised: #17243d;
   --ink: #ebe6da;
   --muted: #a3abbb;
@@ -215,7 +215,26 @@ h1 {
 }
 
 .mark--minor .dot {
+  position: relative;
   border-width: 1.5px;
+}
+
+/* Only the dot reacts to the pointer, so the hidden name can't be
+   uncovered by hovering the empty space where it would appear. */
+.mark--minor {
+  pointer-events: none;
+}
+
+.mark--minor .dot {
+  pointer-events: auto;
+}
+
+/* A bigger invisible target around the small dot. */
+.mark--minor .dot::after {
+  content: "";
+  position: absolute;
+  inset: -0.6rem;
+  border-radius: 50%;
 }
 
 .tag {
@@ -241,6 +260,21 @@ h1 {
   font-size: 0.75rem;
   font-weight: 400;
   color: #d9dce4;
+  /* Smaller labels show their name only on hover, tap or keyboard focus. */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s, visibility 0s linear 0.15s;
+}
+
+.mark--minor:hover .tag,
+.mark--minor:focus .tag {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.15s;
+}
+
+.mark--minor:focus {
+  outline: none;
 }
 
 .mark:hover .dot,
@@ -269,36 +303,6 @@ h1 {
 @keyframes appear {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-/* Quick note for the smaller labels */
-.note {
-  position: absolute;
-  z-index: 3;
-  width: min(17rem, 70%);
-  padding: 0.75rem 0.9rem;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  background: var(--night-raised);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  transform: translate(-50%, calc(-100% - 1rem));
-}
-
-.note.below {
-  transform: translate(-50%, 1rem);
-}
-
-.note h3 {
-  margin: 0 0 0.25rem;
-  font-family: var(--sans);
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.note p {
-  margin: 0;
 }
 
 /* ---------- Legend ---------- */
@@ -513,6 +517,7 @@ h1 {
 /* ---------- Position editor (open the page with ?edit) ---------- */
 
 .editing .mark {
+  pointer-events: auto;
   cursor: grab;
   touch-action: none;
 }
@@ -591,11 +596,6 @@ h1 {
 
   .tag {
     font-size: 0.75rem;
-  }
-
-  /* Keep the photo readable: small labels become tappable dots. */
-  .mark--minor .tag {
-    display: none;
   }
 
   .mark--minor {
