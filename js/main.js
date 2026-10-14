@@ -153,6 +153,17 @@
   const legend = $("legend");
   const toggle = $("toggle-labels");
 
+  /* ---------- Star field background ---------- */
+
+  // The star field draws inside its own shadow root, so pause it from there
+  // for anyone who has asked their system for less motion.
+  const sky = $("night-sky");
+  if (sky && sky.shadowRoot && matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const still = document.createElement("style");
+    still.textContent = ".star { animation-play-state: paused !important; }";
+    sky.shadowRoot.append(still);
+  }
+
   /* ---------- Image ---------- */
 
   const ready = () => frame.classList.add("is-ready");

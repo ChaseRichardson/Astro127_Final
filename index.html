@@ -11,6 +11,19 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- Drifting star field behind the page (js/vendor/night-sky.min.js). -->
+  <night-sky
+    id="night-sky"
+    aria-hidden="true"
+    layers="3"
+    density="40"
+    velocity-x="12"
+    velocity-y="6"
+    star-shape="circle"
+    star-color="rgba(235, 230, 218, 0.75)"
+    background-color="transparent"
+  ></night-sky>
+
   <main class="layout">
     <header class="head">
       <h1>Desert Stairway to Heaven</h1>
@@ -62,6 +75,7 @@
     </aside>
   </main>
 
+  <script src="js/vendor/night-sky.min.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>

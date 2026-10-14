@@ -46,9 +46,24 @@ button {
   outline-offset: 3px;
 }
 
+/* ---------- Star field background ---------- */
+
+#night-sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+  /* A faint glow low on the screen, like light pollution on the horizon. */
+  background: radial-gradient(ellipse at bottom, #101c2f 0%, var(--night) 70%);
+}
+
 /* ---------- Layout ---------- */
 
 .layout {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: auto minmax(0, 34rem);
   grid-template-rows: auto 1fr;
@@ -379,7 +394,7 @@ h1 {
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 0 0.25rem 1.5rem 0;
-  background: var(--night);
+  background: transparent;
   visibility: hidden;
   opacity: 0;
   transform: translateX(1.5rem);
@@ -393,13 +408,29 @@ h1 {
   transition: opacity 0.3s, transform 0.3s;
 }
 
+/* The panel shares a column with the intro and legend, so step them aside
+   while it's open instead of covering them with a solid box. */
+.head,
+.rest {
+  transition: opacity 0.3s, visibility 0s linear 0s;
+}
+
+.layout:has(.panel.is-open) > .head,
+.layout:has(.panel.is-open) > .rest {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0s linear 0.2s;
+}
+
 .panel-top {
   position: sticky;
   top: 0;
   display: flex;
   justify-content: flex-end;
   padding: 0.6rem 0;
-  background: var(--night);
+  background: rgba(15, 26, 46, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
 .panel h2 {
@@ -573,6 +604,13 @@ h1 {
 
   .rest {
     padding-top: 2rem;
+  }
+
+  /* Here the panel is a sheet over the page, so leave the page as it is. */
+  .layout:has(.panel.is-open) > .head,
+  .layout:has(.panel.is-open) > .rest {
+    visibility: visible;
+    opacity: 1;
   }
 
   .panel {
