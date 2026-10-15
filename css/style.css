@@ -66,11 +66,15 @@ button {
   z-index: 1;
   display: grid;
   grid-template-columns: auto minmax(0, 34rem);
-  grid-template-rows: auto 1fr;
+  /* The empty 1fr rows above and below split the leftover height evenly,
+     which centers the intro and legend beside the photo. */
+  grid-template-rows: 1fr auto auto 1fr;
   grid-template-areas:
+    "photo ."
     "photo head"
-    "photo rest";
-  column-gap: clamp(2rem, 5vw, 5rem);
+    "photo rest"
+    "photo .";
+  column-gap: clamp(3rem, 7.5vw, 8rem);
   justify-content: center;
   min-height: 100svh;
   padding: 1.5rem clamp(1rem, 3vw, 2.5rem);
@@ -102,23 +106,47 @@ h1 {
 
 .photo {
   grid-area: photo;
-  width: min-content; /* caption wraps to the photo's width */
+  /* The photo alone sets this column's width; the caption just wraps to
+     it. (Sizing it from the content let the toggle button's text nudge
+     the whole layout when it switched between Hide and Show.) */
+  width: min(56vw, calc((100svh - 6rem) * 0.75));
   margin: 0;
   align-self: start;
+  opacity: 0.9;
 }
 
 .frame {
   position: relative;
-  width: min(56vw, calc((100svh - 6rem) * 0.75));
+  width: 100%;
   aspect-ratio: 3 / 4;
+  /* Rounded here and on the photo, without overflow: hidden, so labels
+     near the edges aren't clipped. */
+  border-radius: 10px;
+}
+
+/* Dark placeholder only while the photo loads; after that the faded
+   edges should show the star field, not a box. */
+.frame:not(.is-ready) {
   background: #070b16;
 }
 
 .frame img {
   display: block;
+  border-radius: inherit;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Fade the photo's edges into the background. Raise --fade for a softer,
+     wider blend, or lower it for a tighter one. */
+  --fade: 3%;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent),
+    linear-gradient(to bottom, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent),
+    linear-gradient(to bottom, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
+  mask-composite: intersect;
 }
 
 .photo figcaption {
@@ -145,6 +173,13 @@ h1 {
   text-underline-offset: 0.2em;
   text-decoration-color: var(--rule);
   cursor: pointer;
+}
+
+/* Wide enough for both "Hide labels" and "Show labels", so the caption
+   doesn't reflow when the text swaps. */
+#toggle-labels {
+  min-width: 5.75rem;
+  text-align: right;
 }
 
 .text-btn:hover {
@@ -389,7 +424,7 @@ h1 {
 
 .panel {
   grid-column: 2;
-  grid-row: 1 / 3;
+  grid-row: 1 / -1;
   align-self: stretch;
   position: sticky;
   top: 1.5rem;
