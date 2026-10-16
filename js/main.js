@@ -53,7 +53,7 @@
         ["Height", "90 to 300 km"],
         ["When", "Every night, all over Earth"],
       ],
-      sources: ["https://science.nasa.gov/earth/earth-observatory/airglow-over-the-indian-ocean-147367/"],
+      sources: ["https://science.nasa.gov/earth/earth-observatory/airglow-over-the-indian-ocean-147367/", "https://en.wikipedia.org/wiki/Airglow",],
     },
     {
       id: "zodiacal",
@@ -104,7 +104,7 @@
         ["Size", "About 7,000 ly across"],
         ["Visible from", "Southern hemisphere and tropics"],
       ],
-      sources: [],
+      sources: ["https://en.wikipedia.org/wiki/Small_Magellanic_Cloud",],
     },
 
     /* Smaller labels: just a name, shown when you point at the dot. */
