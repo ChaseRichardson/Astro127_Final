@@ -51,8 +51,6 @@
       ],
       facts: [
         ["Height", "90 to 300 km"],
-        ["Green line", "557.7 nm, atomic oxygen"],
-        ["Red line", "630 nm, atomic oxygen"],
         ["When", "Every night, all over Earth"],
       ],
       sources: ["https://science.nasa.gov/earth/earth-observatory/airglow-over-the-indian-ocean-147367/"],
@@ -71,8 +69,6 @@
       facts: [
         ["Grain size", "About 10 to 300 µm"],
         ["Lies along", "The ecliptic"],
-        ["Main source", "Comet dust, plus asteroid collisions"],
-        ["Also called", "False dawn"],
       ],
       sources: ["https://en.wikipedia.org/wiki/Zodiacal_light", ],
     },
@@ -84,17 +80,14 @@
       distance: "Hundreds to tens of thousands of light-years",
       where: "The bright band rising almost straight up behind the staircase, split by a dark lane.",
       body: [
-        "The Milky Way is our home galaxy, a barred spiral roughly 100,000 light-years across holding somewhere between 100 and 400 billion stars. We sit inside its flat disk, about 26,000 light-years from the center, so when we look along the disk we see the combined light of billions of distant stars as a glowing band wrapping around the sky.",
-        "The dark lane isn't a gap in the stars. It's dust: cold clouds of tiny grains and gas in the disk, between us and the more distant stars, that absorb and scatter their light. These clouds are the raw material for new stars. Dust dims blue light more than red, so stars seen through thinner patches of it look redder than they really are, an effect called interstellar reddening. Along this stretch of the band, the lane is often called the Great Rift.",
-        "The brightest part of the band points toward the galactic center in Sagittarius. In July, from the Atacama's latitude, that region passes nearly overhead in the evening, which is why the band stands almost vertically above the horizon here. From mid-northern latitudes like the US Midwest, the same region never climbs more than about 20° above the southern horizon.",
+        "The Milky Way is the home galaxy of our solar system. It spans roughly 100,000 light-years across and contains somewhere between 100 and 400 billion stars. We are located within the Milky Way’s flat disk, about 26,000 light-years from the center of the galaxy, in the direction of Sagittarius. Because we are inside the disk, when we look along it, we see the combined light of billions of distant stars as a glowing band stretching across the sky.",
+        "The dark line you see in the picture isn’t a gap in the stars. Instead, it is caused by dust: cold clouds of tiny grains and gas located in the disk between us and more distant stars. This dust absorbs and scatters some of the starlight. It dims blue light more than red light, so stars viewed through thinner patches of dust can appear redder than they actually are.",
       ],
       facts: [
-        ["Diameter", "About 100,000 ly"],
         ["Stars", "100 to 400 billion"],
         ["Sun to center", "About 26,000 ly"],
-        ["Dark lane", "Dust clouds in the disk"],
       ],
-      sources: [],
+      sources: ["https://en.wikipedia.org/wiki/Milky_Way"],
     },
     {
       id: "smc",
@@ -104,14 +97,11 @@
       distance: "About 200,000 light-years away",
       where: "The small, faint, cloud-like smudge at the very top right.",
       body: [
-        "The Small Magellanic Cloud is a separate galaxy: a dwarf galaxy about 200,000 light-years away and about 7,000 light-years across, with a few hundred million stars. It orbits the Milky Way along with its larger partner, the Large Magellanic Cloud, and it's one of the few galaxies anyone can see without a telescope.",
-        "The two clouds have been pulling on each other and on the Milky Way for billions of years. That tug left a bridge of gas and young stars between them, the Magellanic Bridge, and a much longer trail of gas, the Magellanic Stream, stretching across the sky. Their gas holds fewer heavy elements than the Milky Way's, so astronomers use them to study star formation in conditions closer to those of the early universe.",
-        "The SMC also has a special place in the history of astronomy. In 1912, Henrietta Swan Leavitt, studying photographic plates of the SMC at Harvard, found that Cepheid variable stars that pulse more slowly are intrinsically brighter. Because all of those stars sit at about the same distance, the pattern was real, and it became one of the first reliable ways to measure distances to other galaxies. At about 73° south in the sky, the SMC never rises for observers north of the tropics.",
+        "The Small Magellanic Cloud is a dwarf galaxy that is separate from the Milky Way. This galaxy is located about 200,000 light-years away, is around 7,000 light-years across, and contains a few hundred million stars. The Small Magellanic Cloud’s larger partner is the Large Magellanic Cloud, and both galaxies interact gravitationally with the Milky Way.",
+        "The two Magellanic Clouds have been pulling on each other and interacting with the Milky Way for billions of years, creating structures made of gas and stars. The Magellanic Bridge is a stream of gas and young stars connecting the two galaxies, while the Magellanic Stream is a long trail of gas extending from them. A fun fact about this gas is that it contains fewer heavy elements than gas in the Milky Way, allowing astronomers to study low-metallicity material and conditions that are somewhat similar to those found in the early universe.",
       ],
       facts: [
-        ["Distance", "About 200,000 ly"],
         ["Size", "About 7,000 ly across"],
-        ["Type", "Dwarf galaxy"],
         ["Visible from", "Southern hemisphere and tropics"],
       ],
       sources: [],
